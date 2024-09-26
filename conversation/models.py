@@ -14,7 +14,7 @@ class ConversationModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = "conversation"
+        db_table = "chat_conversation"
 
 class InstanceModel(models.Model):
     instance_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -24,4 +24,4 @@ class InstanceModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table='instance'
+        db_table="chat_instance"

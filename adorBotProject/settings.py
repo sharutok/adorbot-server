@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 load_dotenv(".env")
+import redis
+
 """
 Django settings for adorBotProject project.
 
@@ -26,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u1^k_xd5y1a*c&%czr(0gk#jl9fwft_!dqsun8w!uhxpt@uv5h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
@@ -40,9 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "conversation",
     "rest_framework",
     "corsheaders",
+    "conversation",
+    "cache"
 ]
 
 MIDDLEWARE = [
@@ -90,6 +93,18 @@ DATABASES = {
         "PORT": os.environ.get("POSTGRES_PORT"),
     }
 }
+
+try:
+    r = redis.Redis(
+        host=os.environ.get("REDIS_HOST"),
+        port=6379,
+        decode_responses=True,
+        db=3,
+        password=os.environ.get("REDIS_PASSWORD"),
+    )
+    print("Connected to Redis DB successfull")
+except Exception as e:
+    print("Redis DB Unsuccessfull")
 
 
 # Password validation
