@@ -8,6 +8,7 @@ from .functions import (
     chat_history_by_id,
     generate_response,
     validate_user,
+    chat_history,
 )
 
 # Create your views here.
@@ -26,7 +27,9 @@ def DATA_BY_ID(request, id):
 @api_view(['POST'])
 def GENERATE_RESPONSE(request,id):
     try:
-        response = generate_response(questions=request.data["questions"])
+        response = generate_response(
+            questions=request.data["questions"]
+        )
         response['user_id']=str(id)
         response["response_status"] = False
         response["other_info"] = json.dumps(response["meta_response"])
@@ -37,7 +40,6 @@ def GENERATE_RESPONSE(request,id):
     except Exception as e:
         print("Error",e)
         return Response({'status':400})
-
 
 @api_view(['GET'])
 def CHAT_HISTORY_BY_ID(request, id):

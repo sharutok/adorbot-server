@@ -92,7 +92,6 @@ def generate_response(questions):
             headers={"Content-Type": "application/json"},
             data=json.dumps({"questions": questions}),
         )
-        # print(response.json())
         return response.json()
     except Exception as e:
         print("error in generating resposne", e)
@@ -142,3 +141,10 @@ def validate_user(request):
             print("no email or password")
     except Exception as e:
         print(e)
+
+
+def chat_history(instance_id, user_id):
+    try:
+        return find_key(instance_id,user_id)
+    except Exception as e:
+        print("error in chat_history",e)
