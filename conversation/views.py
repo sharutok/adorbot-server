@@ -20,7 +20,7 @@ def DATA_BY_ID(request, id):
         response = get_by_id(request, id)
         return Response({'status':200,"response":response})
     except Exception as e:
-        print("Error",e)
+        print("Error in DATA_BY_ID", e)
         return Response({'status':400})
 
 
@@ -32,8 +32,8 @@ def GENERATE_RESPONSE(request,id):
         )
         response['user_id']=str(id)
         response["response_status"] = False
-        response["other_info"] = json.dumps(response["meta_response"])
         response["instance_id"] = request.data["instance_id"]
+        response["other_info"] = json.dumps(response["meta_response"])
         _response={**response}
         response = post_by_id(response)
         return Response({'status':200,"response":{**response,**_response}})
@@ -43,7 +43,6 @@ def GENERATE_RESPONSE(request,id):
 
 @api_view(['GET'])
 def CHAT_HISTORY_BY_ID(request, id):
-    print('CHAT_HISTORY_BY_ID')
     try:
         match request.method:
             case "GET":
@@ -65,7 +64,6 @@ def CHAT_HISTORY_BY_ID(request, id):
 @api_view(["POST"])
 def VALIDATE_USER(request):
     try:
-        print(request)
         response = validate_user(request)
         return Response({"status": 200, "response": response})
     except Exception as e:
