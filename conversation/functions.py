@@ -134,12 +134,11 @@ def validate_user(request):
                     }
                 ),
             )
-
-            resp = json.loads(response.text)
-            return {"emp_no": resp["emp_no"], "initials": resp["initials"]}
+            return json.loads(response.text)
         else:
             print("no email or password")
     except Exception as e:
+        return{"status":400}
         print(e)
 
 

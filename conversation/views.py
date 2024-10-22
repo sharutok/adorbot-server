@@ -65,7 +65,15 @@ def CHAT_HISTORY_BY_ID(request, id):
 def VALIDATE_USER(request):
     try:
         response = validate_user(request)
-        return Response({"status": 200, "response": response})
+        return Response(response)
+    except Exception as e:
+        print("Error", e)
+        return Response({"status": 400})
+
+@api_view(["GET"])
+def HEALTH_CHECK(request):
+    try:
+        return Response({"status": 200})
     except Exception as e:
         print("Error", e)
         return Response({"status": 400})
