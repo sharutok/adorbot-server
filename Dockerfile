@@ -11,13 +11,13 @@ RUN apt-get update && apt-get install -y \
 # Install dependencies
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python3 manage.py makemigration && python3 manage.py migrate
 
 # Explicitly install gunicorn in the development stage
 RUN pip install --no-cache-dir gunicorn
 
 # Copy project files
 COPY . /app/
+RUN python3 manage.py makemigration && python3 manage.py migrate
 
 # Environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
