@@ -7,6 +7,7 @@ class ConversationModel(models.Model):
     user_id = models.TextField(editable=True)
     instance_id = models.TextField(editable=True)
     questions=models.TextField(null=True)
+    ai_generated_questions=models.TextField(null=True)
     response = models.TextField(null=True)
     response_status=models.BooleanField()
     other_info = models.TextField(default=list)

@@ -52,10 +52,15 @@ def post_by_id(request):
             if instance.is_valid():
                 obj = instance.save()
                 request["instance_id"] = InstanceSerializer(obj).data["instance_id"]
+                print("request",request)
                 conversation = ConversationSerializer(data=request)
                 if conversation.is_valid():
                     obj = conversation.save()
                     chat_history=popAndInsert(data=[[ConversationSerializer(obj).data["questions"],ConversationSerializer(obj).data["response"]]],instance_id=request["instance_id"],user_id=ConversationSerializer(obj).data["user_id"])
+                    print("return",{
+                        **ConversationSerializer(obj).data,
+                        "chat_history": chat_history,
+                    })
                     return {
                         **ConversationSerializer(obj).data,
                         "chat_history": chat_history,
@@ -83,14 +88,14 @@ def chat_history_by_id(request, id):
         return None
 
 
-def generate_response(questions):
+def generate_response(questions,chat_history):
     try:
         url = "{}/generate/text".format(os.environ.get("MICROSERVICE_API_BASE_URL"))
         response = requests.request(
             "POST",
             url,
             headers={"Content-Type": "application/json"},
-            data=json.dumps({"questions": questions}),
+            data=json.dumps({"questions": questions,"chat_history":chat_history}),
         )
         return response.json()
     except Exception as e:

@@ -42,7 +42,7 @@ def find_key(user_id, instance_id):
 
 def popAndInsert(user_id, instance_id, data):
     _find_key=find_key(user_id, instance_id)
-    if len(_find_key) <= 2:
+    if len(_find_key) <= 0:
         insert_data(user_id, instance_id, data)
     else:
         remove_old_conversation_singular(user_id,instance_id)

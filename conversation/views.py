@@ -11,6 +11,7 @@ from .functions import (
     chat_history,
 )
 
+from cache.views import (find_key)
 # Create your views here.
 
 
@@ -27,9 +28,12 @@ def DATA_BY_ID(request, id):
 @api_view(['POST'])
 def GENERATE_RESPONSE(request,id):
     try:
+        chat_history=find_key(instance_id=request.data["instance_id"],user_id=id)
         response = generate_response(
-            questions=request.data["questions"]
-        )
+            questions=request.data["questions"],
+            chat_history=chat_history        
+            )
+        
         response['user_id']=str(id)
         response["response_status"] = False
         response["instance_id"] = request.data["instance_id"]
