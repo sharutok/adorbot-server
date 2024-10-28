@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     build: .
-    command: gunicorn --timeout 500 --workers 3 adorBotProject.wsgi:application --bind 0.0.0.0:8001
+    command: gunicorn adorBotProject.wsgi:application --bind 0.0.0.0:8001 --timeout 500 --workers 3
     ports:
       - "8001:8001"
   nginx:
