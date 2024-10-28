@@ -32,4 +32,4 @@ ENV PYTHONUNBUFFERED 1
 EXPOSE 8001
 
 # Command to run the application
-CMD ["gunicorn", "adorBotProject.wsgi:application", "--bind", "0.0.0.0:8001"]
+CMD ["gunicorn", "adorBotProject.wsgi:application", "--bind", "0.0.0.0:8001","--timeout", "500", "--workers", "3"]
