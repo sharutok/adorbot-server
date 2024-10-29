@@ -5,6 +5,9 @@ services:
     command: gunicorn adorBotProject.wsgi:application --bind 0.0.0.0:8001 --timeout 500 --workers 3
     ports:
       - "8001:8001"
+    networks:
+      - shared_network
+
   nginx:
     image: nginx:alpine
     volumes:
@@ -13,3 +16,9 @@ services:
       - "8000:8000"
     depends_on:
       - web
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    external: true

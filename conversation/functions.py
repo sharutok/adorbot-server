@@ -73,7 +73,6 @@ def post_by_id(request):
         print("error in saving 3", e)
         return None
 
-
 def chat_history_by_id(request, id):
     try:
         print(id)
@@ -86,7 +85,6 @@ def chat_history_by_id(request, id):
     except Exception as e:
         print("chat_history_by_id", e)
         return None
-
 
 def generate_response(questions,chat_history):
     try:
@@ -101,7 +99,6 @@ def generate_response(questions,chat_history):
     except Exception as e:
         print("error in generating resposne", e)
         return None
-
 
 def execute_select_sql(sql):
     try:

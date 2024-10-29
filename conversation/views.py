@@ -33,7 +33,6 @@ def GENERATE_RESPONSE(request,id):
             questions=request.data["questions"],
             chat_history=chat_history        
             )
-        
         response['user_id']=str(id)
         response["response_status"] = False
         response["instance_id"] = request.data["instance_id"]
