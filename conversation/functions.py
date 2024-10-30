@@ -133,6 +133,7 @@ def validate_user(request):
                         "password": password,
                         "prefix": "@adorians.com",
                         "remember_me": False,
+                        "mode":"bot"
                     }
                 ),
             )
