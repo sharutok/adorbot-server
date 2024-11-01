@@ -39,7 +39,8 @@ def GENERATE_RESPONSE(request,id):
         response["other_info"] = json.dumps(response["meta_response"])
         _response={**response}
         response = post_by_id(response)
-        return Response({'status':200,"response":{**response,**_response}})
+        print(response["instance_id"] , _response["instance_id"])
+        return Response({'status':200,"response":{**response,**_response,"instance_id":response["instance_id"] if response["instance_id"] else _response["instance_id"] }})
     except Exception as e:
         print("Error",e)
         return Response({'status':400})
